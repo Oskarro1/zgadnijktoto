@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<style>
+.red-x {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    pointer-events: none;
+    display: none;
+    z-index: 2;
+}
+.button-photo.clicked .red-x {
+    display: block;
+}
+.red-x line {
+    stroke: #ff2222;
+    stroke-width: 16;
+    stroke-linecap: round;
+    filter: drop-shadow(0 0 6px #ff2222) drop-shadow(0 0 12px #fff);
+}
+</style>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <style>
+        /* Navbar styles */
+        .navbar {
+            width: 100%;
+            background: #232323;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5em 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .navbar-title {
+            font-size: 2em;
+            color: #d6d6d6;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-right: 2em;
+        }
+        .navbar-links {
+            display: flex;
+            gap: 1.5em;
+        }
+        .navbar-link {
+            color: #d6d6d6;
+            text-decoration: none;
+            font-size: 1em;
+            padding: 0.3em 0.7em;
+            border-radius: 5px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .navbar-link:hover {
+            background: #444;
+            color: #fff;
+        }
+        @media (max-width: 600px) {
+            .navbar {
+            flex-direction: column;
+            padding: 0.5em 0.2em;
+            }
+            .navbar-title {
+            font-size: 1.2em;
+            margin: 0 0 0.5em 0;
+            }
+            .navbar-links {
+            gap: 0.7em;
+            }
+        }
+        html, body {
+            height: 100%;
+            background-color: #2b2b2b;
+            color: #d6d6d6;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        body {
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .tlo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #444;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            background: #232323;
+            margin: 5px;
+            width: 22vw;
+            min-width: 120px;
+            max-width: 180px;
+            aspect-ratio: 1/1;
+            float: left; /* Added to make photos appear beside each other */
+        }
+        .button-photo {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            border: none;
+            padding: 0;
+            background: none;
+            cursor: pointer;
+        }
+        .button-photo img {
+            width: 100%;
+            height: auto;
+            max-height: 70%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .red-x {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            pointer-events: none;
+            display: none;
+        }
+        .button-photo.clicked .red-x {
+            display: block;
+        }
+        .tytul {
+            text-align: center;
+            margin-top: 5px;
+            font-size: 1em;
+            color: #d6d6d6;
+            background: none;
+        }
+        h1, h5 {
+            letter-spacing: 2px;
+            color: #707070;
+            font-weight: bold;
+            background: none;
+        }
+        @media (max-width: 600px) {
+            .tlo {
+                width: 44vw;
+                min-width: 80px;
+                max-width: 140px;
+            }
+        }
+        .oskarro {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.8em;
+            color: #d6d6d6;
+            background-color: #444;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        </style>
+        <nav class="navbar">
+            <div class="navbar-title">Zgadnij Kto to</div>
+            <div class="navbar-links">
+                <a href="#" class="navbar-link" onclick="alert('Zasady gry: \n1.Wybierzcie sobie rzeczy z przeciwnikiem\n2.Kliknij na zdjęcie by je oznaczyć\n3.Wygrywa ten kto zgadnie pierwszy\n\nWymagany kontakt z innym graczem.'); return false;">Zasady</a>
+            </div>
+        </nav>
+
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/azbest.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Azbest</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/bodypillow.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Bodypillow</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/cegłasmierci.jpg" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Cegła śmierci</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/chomikbdsm.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Chomik BDSM</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/cyborgkotochlopiec.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Cyborg Koto Chłopiec</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/cyckimurzynki.jpg" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Cycki Murzynki</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/delewopermaciej.png" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Delewoper Maciej</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/delewoperrower.png" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Delewoper Rower</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/donaldtusk.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Donald Tusk</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/dwiekremowki.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Dwie Kremówki</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/dziadek.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Dziadek</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/dzin.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Dzin</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/elektrycznedildo.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Elektryczne Dildo</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/eneharuijegonoważona.jpg" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Eneharu i jego nowa żona</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/eneharumc.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Eneharu MC</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/gierek.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Gierek</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/fenikusbru.png" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Fenikus</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/gin.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Gin</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/glupipies.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Głupi Pies</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/gojosatoru.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Gojo Satoru</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/hatsunemiku.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Hatsune Miku</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/homikgibon.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Homik Gibon</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/hydrant.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Hydrant</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/izofeu.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Izofeu</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/izofeutanczy.png" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Tańczący Izofeu</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/jacekjawoerk.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Jacek Jaworek</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/jacekspermoreki.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Jacek Spremoręki</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/janpat2.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Jan Pat II</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/janpawel2.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Jan Paweł II</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/jean.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Jean</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/jezus.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Jezus</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/jezuzxleszek.gif" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Jezus i Leszek</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/jhin.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Jhin</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/jinkazama.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Jin Kazama</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/jinsuisei.png" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Jin Suisei</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/jinzkarty.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Jin Z Karty</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/kaczuszka.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Kaczuszka</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/koszulazbambusem.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Koszula z Bambusem</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/ktos.gif" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Ktoś</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/kulamocy.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Kula Mocy</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/lech.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Lech</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/lechpoznan.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Lech Poznań</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/maidoutfitizofea.avif" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Maid Outfit Izofea</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/makowiec.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Makowiec</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/manukadydek.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Manuka Dydek</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/matt.jpg" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Matt</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/mentzen.jpg" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Mentzen</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/mentzendetroid.jpg" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Mentzen Z Detroid</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/metalpipe.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Metal Pipe</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/microhid.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Microhid</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/murzyn.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Murzyn</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/murzynek.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Murzynek</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/murzyngural.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Murzyngural</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/nogger.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Nogger</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/nowoscwminecraft.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Nowość w Minecraft</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/obsydian.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Obsydian</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/oscypek.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Oscypek</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/oskarro.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Oskarro</div>
+            </button>
+        </div>
+
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/pies.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Pies</div>
+            </button>
+        </div>
+
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/piwo.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Piwo</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/Porno.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Porno</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/prochybabcipiwowskiego.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Prochy Babci Piwowskiego</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/ren.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Ren</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/smialek.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Smialek</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/stonoga.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Stonoga</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/susei.png" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Susei</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/suseł.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Suseł</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/szafaizofea.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Szafa Izofea</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/toka.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Toka</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/tonic.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Tonic</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/topory.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Topory</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/ulubioneplatkihitlera.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Ulubione płatki Hitlera</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/ushal.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Ushal</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/wazon.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Wazon</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/zarowka.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Zarówka</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/zebrabojowy.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Zebra bojowy</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/zebra.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Zebra</div>
+            </button>
+        </div>
+        
+        <div class="tlo">
+            <button class="button-photo" onclick="this.classList.toggle('clicked')">
+                <img src="zdjecia/zupapiwo.webp" alt="Photo 1">
+                <svg class="red-x" viewBox="0 0 100 100">
+                    <line x1="15" y1="15" x2="85" y2="85" stroke="red" stroke-width="10"/>
+                    <line x1="85" y1="15" x2="15" y2="85" stroke="red" stroke-width="10"/>
+                </svg>
+                <div style="text-align:center; margin-top:5px;" class="tytul">Zupa Piwo</div>
+            </button>
+        </div>
+        
+        <div class="oskarro">Zrobione przez Oskarro</div>
+    </body>
+</html>
